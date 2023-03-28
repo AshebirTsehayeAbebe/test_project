@@ -1,0 +1,13 @@
+aws s3 cp target/projectcovtest.jar s3://projectcovtest/projectcovtest.jar
+
+aws elasticbeanstalk create-application --application-name projectcovtest
+
+aws elasticbeanstalk create-environment --application-name projectcovtest --environment-name projectcovtest --cname-prefix projectcovtest --version-label v1 --solution-stack-name "64bit Amazon Linux 2018.03 v2.10.9 running Java 8"
+
+aws elasticbeanstalk create-application-version --application-name projectcovtest --version-label v1 --description projectcovtestv1 --source-bundle S3Bucket="projectcovtest",S3Key="projectcov.jar" --auto-create-application
+
+aws elasticbeanstalk create-application-version --application-name projectcovtest --version-label "0.0.1" --source-bundle S3Bucket="projectcovtest",S3Key="projectcovtest.jar"
+
+aws elasticbeanstalk update-environment --environment-name projectcovtest development --version-label "0.0.1"
+
+apt-get install \build-essential zlib1g-dev libssl-dev libncurses-dev\libffi-dev libsqlite3-dev libreadline-dev libbz2-dev

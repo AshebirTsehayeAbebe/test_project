@@ -1,0 +1,1 @@
+INSERT IGNORE INTO roles(role_name,role_full_name, is_deleted) VALUES('Admin','ROLE_ADMIN', 0);
